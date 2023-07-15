@@ -5,4 +5,6 @@ git pull
 
 echo "Building application"
 
-docker-compose up -d --build
+docker-compose build
+
+docker-compose up -d 
