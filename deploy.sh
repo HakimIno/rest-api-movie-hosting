@@ -1,10 +1,9 @@
 #!/bin/bash
 
+cd "$(dirname "$0")"
+
 echo "Pulling"
-git pull 
+git pull
 
 echo "Building application"
-
-docker-compose build
-
-docker-compose up -d 
+docker-compose up -d --build
