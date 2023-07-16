@@ -29,5 +29,7 @@ RUN prisma generate
 # Build the project
 RUN npm run build
 
+EXPOSE 8000
+
 # Specify the command to run your application
 CMD ["node", "dist/src/index.js"]

@@ -1,14 +1,28 @@
 version: "3.9"
+
 services:
   rest-api:
     container_name: rest-api
-    restart: always
+    restart: unless-stopped
     environment:
       - DATABASE_URL=${DATABASE_URL}
-    build:
-      context: ./
+    build: .
+    networks:
+      - app-network
+
+  proxy:
+    image: nginx:alpine
+    container_name: web-proxy
+    restart: unless-stopped
+    volumes:
+      - ./proxy.conf:/etc/nginx/conf.d/default.conf
     ports:
-      - ${PORT}:${PORT}
+      - 8000:80
+    depends_on:
+      - rest-api
+    networks:
+      - app-network
 
-
-
+networks:
+  app-network:
+    driver: bridge
